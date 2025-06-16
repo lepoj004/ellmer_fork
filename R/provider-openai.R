@@ -125,6 +125,7 @@ method(base_request, ProviderOpenAI) <- function(provider) {
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
   req <- base_request_error(provider, req)
+  sink()
   req <- req_verbose(req)
   req
 }
