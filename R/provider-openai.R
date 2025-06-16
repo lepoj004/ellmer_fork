@@ -272,8 +272,6 @@ method(value_turn, ProviderOpenAI) <- function(
     input = result$usage$prompt_tokens,
     output = result$usage$completion_tokens
   )
-  cat("DEBUG: Raw result from OpenAI:\n")
-  print(jsonlite::toJSON(result, pretty = TRUE, auto_unbox = TRUE))
   assistant_turn(
     content,
     json = result,
