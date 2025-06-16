@@ -132,6 +132,7 @@ method(base_request, ProviderOpenAI) <- function(provider) {
 
 method(base_request_error, ProviderOpenAI) <- function(provider, req) {
   req_error(req, body = function(resp) {
+    sink()
     cat("DEBUG: Raw HTTP response body:\n")
     print(resp_body_string(resp))
     if (resp_content_type(resp) == "application/json") {
