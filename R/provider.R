@@ -59,7 +59,7 @@ chat_request <- new_generic(
   "provider",
   function(
     provider,
-    stream = TRUE,
+    stream = FALSE,
     turns = list(),
     tools = list(),
     type = NULL
@@ -70,7 +70,7 @@ chat_request <- new_generic(
 
 method(chat_request, Provider) <- function(
   provider,
-  stream = TRUE,
+  stream = FALSE,
   turns = list(),
   tools = list(),
   type = NULL
@@ -96,7 +96,7 @@ chat_body <- new_generic(
   "provider",
   function(
     provider,
-    stream = TRUE,
+    stream = FALSE,
     turns = list(),
     tools = list(),
     type = NULL
