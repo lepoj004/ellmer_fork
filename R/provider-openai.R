@@ -224,7 +224,7 @@ method(stream_parse, ProviderOpenAI) <- function(provider, event) {
 }
 method(stream_text, ProviderOpenAI) <- function(provider, event) {
   sink()
-  cat("DEBUG: stream_parse() received event:\n")
+  cat("DEBUG: stream_text() received event:\n")
   print(event)
   if (length(event$choices) == 0) {
     NULL
@@ -238,7 +238,7 @@ method(stream_merge_chunks, ProviderOpenAI) <- function(
   chunk
 ) {
   sink()
-  cat("DEBUG: stream_parse() received event:\n")
+  cat("DEBUG: stream_merge_chunks() received event:\n")
   print(event)
   if (is.null(result)) {
     chunk
