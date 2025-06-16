@@ -213,6 +213,9 @@ method(chat_params, ProviderOpenAI) <- function(provider, params) {
 # OpenAI -> ellmer --------------------------------------------------------------
 
 method(stream_parse, ProviderOpenAI) <- function(provider, event) {
+  sink()
+  cat("DEBUG: stream_parse() received event:\n")
+  print(event)
   if (is.null(event) || identical(event$data, "[DONE]")) {
     return(NULL)
   }
@@ -220,6 +223,9 @@ method(stream_parse, ProviderOpenAI) <- function(provider, event) {
   jsonlite::parse_json(event$data)
 }
 method(stream_text, ProviderOpenAI) <- function(provider, event) {
+  sink()
+  cat("DEBUG: stream_parse() received event:\n")
+  print(event)
   if (length(event$choices) == 0) {
     NULL
   } else {
@@ -231,6 +237,9 @@ method(stream_merge_chunks, ProviderOpenAI) <- function(
   result,
   chunk
 ) {
+  sink()
+  cat("DEBUG: stream_parse() received event:\n")
+  print(event)
   if (is.null(result)) {
     chunk
   } else {
