@@ -130,6 +130,8 @@ method(base_request, ProviderOpenAI) <- function(provider) {
 
 method(base_request_error, ProviderOpenAI) <- function(provider, req) {
   req_error(req, body = function(resp) {
+    cat("DEBUG: Raw HTTP response body:\n")
+    print(resp_body_string(resp))
     if (resp_content_type(resp) == "application/json") {
       error <- resp_body_json(resp)$error
       if (is_string(error)) {
