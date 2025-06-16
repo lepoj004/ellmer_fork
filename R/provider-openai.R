@@ -115,6 +115,8 @@ openai_key <- function() {
 method(base_request, ProviderOpenAI) <- function(provider) {
   req <- request(provider@base_url)
   req <- req_auth_bearer_token(req, provider@api_key)
+  req <- req_headers(req, `X-Disney-Internal-correlationId` = UUIDgenerate())
+  req <- req_headers(req, `X-Disney-Internal-conversationId` = UUIDgenerate())
   req <- req_retry(req, max_tries = 2)
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
