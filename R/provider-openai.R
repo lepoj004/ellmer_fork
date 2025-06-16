@@ -49,6 +49,7 @@ chat_openai <- function(
   params = NULL,
   seed = lifecycle::deprecated(),
   api_args = list(),
+  custom_headers = list(), 
   echo = c("none", "output", "all")
 ) {
   model <- set_default(model, "gpt-4.1")
@@ -70,7 +71,8 @@ chat_openai <- function(
     model = model,
     params = params,
     extra_args = api_args,
-    api_key = api_key
+    api_key = api_key,
+    custom_headers = custom_headers 
   )
   Chat$new(provider = provider, system_prompt = system_prompt, echo = echo)
 }
@@ -98,7 +100,8 @@ ProviderOpenAI <- new_class(
   properties = list(
     prop_redacted("api_key"),
     # no longer used by OpenAI itself; but subclasses still need it
-    seed = prop_number_whole(allow_null = TRUE)
+    seed = prop_number_whole(allow_null = TRUE),
+    custom_headers = new_property(class_list, nullable = TRUE)
   )
 )
 
@@ -115,8 +118,12 @@ openai_key <- function() {
 method(base_request, ProviderOpenAI) <- function(provider) {
   req <- request(provider@base_url)
   req <- req_auth_bearer_token(req, provider@api_key)
-  req <- req_headers(req, `X-Disney-Internal-correlationId` = UUIDgenerate())
-  req <- req_headers(req, `X-Disney-Internal-conversationId` = UUIDgenerate())
+  
+  # Inject custom headers if provided
+  if (!is.null(provider@custom_headers) && length(provider@custom_headers) > 0) {
+    req <- req_headers(req, !!!provider@custom_headers)
+  }
+
   req <- req_retry(req, max_tries = 2)
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
