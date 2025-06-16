@@ -118,10 +118,9 @@ openai_key <- function() {
 method(base_request, ProviderOpenAI) <- function(provider) {
   req <- request(provider@base_url)
   req <- req_auth_bearer_token(req, provider@api_key)
-  # Inject custom headers if provided
-  if (!is.null(provider@custom_headers) && length(provider@custom_headers) > 0) {
-    req <- req_headers(req, !!!provider@custom_headers)
-  }
+  if (!is.null(provider@custom_headers) && length(provider@custom_headers) > 0) {
+    req <- req_headers(req, !!!provider@custom_headers)
+  }
   req <- req_retry(req, max_tries = 2)
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
