@@ -49,7 +49,7 @@ chat_openai <- function(
   params = NULL,
   seed = lifecycle::deprecated(),
   api_args = list(),
-  custom_headers = list(), 
+  custom_headers = list(),
   echo = c("none", "output", "all")
 ) {
   model <- set_default(model, "gpt-4.1")
@@ -72,7 +72,7 @@ chat_openai <- function(
     params = params,
     extra_args = api_args,
     api_key = api_key,
-    custom_headers = custom_headers 
+    custom_headers = custom_headers
   )
   Chat$new(provider = provider, system_prompt = system_prompt, echo = echo)
 }
