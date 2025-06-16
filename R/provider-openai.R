@@ -159,6 +159,8 @@ method(chat_body, ProviderOpenAI) <- function(
   tools = list(),
   type = NULL
 ) {
+  stream = FALSE
+  
   messages <- compact(unlist(as_json(provider, turns), recursive = FALSE))
   tools <- as_json(provider, unname(tools))
 
@@ -417,7 +419,7 @@ method(batch_submit, ProviderOpenAI) <- function(
   requests <- map(seq_along(conversations), function(i) {
     body <- chat_body(
       provider,
-      stream = FALSE,
+      stream = TRUE,
       turns = conversations[[i]],
       type = type
     )
