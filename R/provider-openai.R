@@ -118,7 +118,7 @@ openai_key <- function() {
 method(base_request, ProviderOpenAI) <- function(provider) {
   req <- request(provider@base_url)
   req <- req_auth_bearer_token(req, provider@api_key)
-  if (!is.null(provider@custom_headers) && length(provider@custom_headers) > 0) {
+  if (!is.null(provider@custom_headers) & length(provider@custom_headers) > 0) {
     req <- req_headers(req, !!!provider@custom_headers)
   }
   req <- req_retry(req, max_tries = 2)
