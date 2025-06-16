@@ -282,9 +282,9 @@ method(value_turn, ProviderOpenAI) <- function(
 # ellmer -> OpenAI --------------------------------------------------------------
 
 method(as_json, list(ProviderOpenAI, Turn)) <- function(provider, x) {
-  if (x@role == "developer") {
+  if (x@role == "system") {
     list(
-      list(role = "developer", content = x@contents[[1]]@text)
+      list(role = "system", content = x@contents[[1]]@text)
     )
   } else if (x@role == "user") {
     # Each tool result needs to go in its own message with role "tool"
