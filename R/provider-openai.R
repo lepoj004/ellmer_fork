@@ -278,6 +278,8 @@ method(value_turn, ProviderOpenAI) <- function(
     input = result$usage$prompt_tokens,
     output = result$usage$completion_tokens
   )
+  cat("DEBUG: Parsed result structure:\n")
+  str(result)
   assistant_turn(
     content,
     json = result,
