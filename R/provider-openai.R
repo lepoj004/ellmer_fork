@@ -148,7 +148,7 @@ method(base_request_error, ProviderOpenAI) <- function(provider, req) {
 # Chat endpoint ----------------------------------------------------------------
 
 method(chat_path, ProviderOpenAI) <- function(provider) {
-  "/chat/completions"
+  ""
 }
 
 # https://platform.openai.com/docs/api-reference/chat/create
@@ -282,9 +282,9 @@ method(value_turn, ProviderOpenAI) <- function(
 # ellmer -> OpenAI --------------------------------------------------------------
 
 method(as_json, list(ProviderOpenAI, Turn)) <- function(provider, x) {
-  if (x@role == "system") {
+  if (x@role == "developer") {
     list(
-      list(role = "system", content = x@contents[[1]]@text)
+      list(role = "developer", content = x@contents[[1]]@text)
     )
   } else if (x@role == "user") {
     # Each tool result needs to go in its own message with role "tool"
