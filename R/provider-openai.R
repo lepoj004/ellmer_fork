@@ -213,15 +213,31 @@ method(chat_params, ProviderOpenAI) <- function(provider, params) {
 # OpenAI -> ellmer --------------------------------------------------------------
 
 method(stream_parse, ProviderOpenAI) <- function(provider, event) {
-  sink()
   cat("DEBUG: stream_parse() received event:\n")
   print(event)
+
   if (is.null(event) || identical(event$data, "[DONE]")) {
+    cat("DEBUG: stream_parse() received null or DONE event\n")
     return(NULL)
   }
 
-  jsonlite::parse_json(event$data)
+  cat("DEBUG: Raw event$data:\n")
+  print(event$data)
+
+  parsed <- tryCatch({
+    jsonlite::parse_json(event$data)
+  }, error = function(e) {
+    cat("ERROR: Failed to parse event$data:\n")
+    print(e)
+    return(NULL)
+  })
+
+  cat("DEBUG: Parsed event:\n")
+  str(parsed)
+
+  parsed
 }
+
 method(stream_text, ProviderOpenAI) <- function(provider, event) {
   sink()
   cat("DEBUG: stream_text() received event:\n")
