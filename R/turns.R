@@ -125,7 +125,7 @@ as_user_turns <- function(
 }
 
 is_system_prompt <- function(x) {
-  x@role == "system"
+  x@role == "developer"
 }
 
 check_turn <- function(x, call = caller_env(), arg = caller_arg(x)) {
@@ -160,12 +160,12 @@ normalize_turns <- function(
   }
 
   if (!is.null(system_prompt)) {
-    system_turn <- Turn("system", system_prompt)
+    system_turn <- Turn("developer", system_prompt)
 
     # No turns; start with just the system prompt
     if (length(turns) == 0) {
       turns <- list(system_turn)
-    } else if (turns[[1]]@role != "system") {
+    } else if (turns[[1]]@role != "developer") {
       turns <- c(list(system_turn), turns)
     } else if (overwrite || identical(turns[[1]], system_turn)) {
       # Duplicate system prompt; don't need to do anything
