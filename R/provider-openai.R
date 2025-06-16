@@ -154,7 +154,7 @@ method(chat_path, ProviderOpenAI) <- function(provider) {
 # https://platform.openai.com/docs/api-reference/chat/create
 method(chat_body, ProviderOpenAI) <- function(
   provider,
-  stream = TRUE,
+  stream = FALSE,
   turns = list(),
   tools = list(),
   type = NULL
