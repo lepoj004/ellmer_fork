@@ -100,7 +100,8 @@ ProviderOpenAI <- new_class(
   properties = list(
     prop_redacted("api_key"),
     # no longer used by OpenAI itself; but subclasses still need it
-    seed = prop_number_whole(allow_null = TRUE)
+    seed = prop_number_whole(allow_null = TRUE),
+    custom_headers = new_property(class_list)
   )
 )
 
