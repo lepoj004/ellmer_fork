@@ -125,6 +125,8 @@ method(base_request, ProviderOpenAI) <- function(provider) {
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
   req <- base_request_error(provider, req)
+  cat("DEBUG: Request headers:\n")
+  print(req$headers)
   sink()
   req <- req_verbose(req)
   req
@@ -192,13 +194,8 @@ method(chat_body, ProviderOpenAI) <- function(
     response_format = response_format
   ))
   
-  cat("DEBUG: Request headers:\n")
-  print(req$headers)
-  
   cat("DEBUG: Final JSON body to be sent:\n")
   print(jsonlite::toJSON(body, auto_unbox = TRUE, pretty = TRUE))
-  
-  body
   
   compact(list2(
     messages = messages,
@@ -257,7 +254,6 @@ method(stream_parse, ProviderOpenAI) <- function(provider, event) {
 }
 
 method(stream_text, ProviderOpenAI) <- function(provider, event) {
-  sink()
   cat("DEBUG: stream_text() received event:\n")
   print(event)
   if (length(event$choices) == 0) {
