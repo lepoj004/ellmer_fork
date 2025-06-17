@@ -127,7 +127,6 @@ method(base_request, ProviderOpenAI) <- function(provider) {
   req <- base_request_error(provider, req)
   cat("DEBUG: Request headers:\n")
   print(req$headers)
-  sink()
   req <- req_verbose(req)
   req
 }
@@ -317,7 +316,6 @@ method(value_turn, ProviderOpenAI) <- function(
     input = result$usage$prompt_tokens,
     output = result$usage$completion_tokens
   )
-  sink()
   cat("DEBUG: Parsed result structure:\n")
   str(result)
   assistant_turn(
