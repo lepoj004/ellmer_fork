@@ -182,6 +182,21 @@ method(chat_body, ProviderOpenAI) <- function(
   params <- chat_params(provider, provider@params)
   params$seed <- params$seed %||% provider@seed
 
+  body <- compact(list2(
+    messages = messages,
+    model = provider@model,
+    !!!params,
+    stream = stream,
+    stream_options = if (stream) list(include_usage = TRUE),
+    tools = tools,
+    response_format = response_format
+  ))
+  
+  cat("DEBUG: Final JSON body to be sent:\n")
+  print(jsonlite::toJSON(body, auto_unbox = TRUE, pretty = TRUE))
+  
+  body
+  
   compact(list2(
     messages = messages,
     model = provider@model,
