@@ -125,8 +125,8 @@ method(base_request, ProviderOpenAI) <- function(provider) {
   req <- ellmer_req_timeout(req, stream)
   req <- ellmer_req_user_agent(req)
   req <- base_request_error(provider, req)
-  cat("DEBUG: Request headers:\n")
-  print(req$headers)
+  #cat("DEBUG: Request headers:\n")
+  #print(req$headers)
   req <- req_verbose(req)
   req
 }
@@ -193,8 +193,8 @@ method(chat_body, ProviderOpenAI) <- function(
     response_format = response_format
   ))
   
-  cat("DEBUG: Final JSON body to be sent:\n")
-  print(jsonlite::toJSON(body, auto_unbox = TRUE, pretty = TRUE))
+  # cat("DEBUG: Final JSON body to be sent:\n")
+  # print(jsonlite::toJSON(body, auto_unbox = TRUE, pretty = TRUE))
   
   compact(list2(
     messages = messages,
@@ -316,8 +316,8 @@ method(value_turn, ProviderOpenAI) <- function(
     input = result$usage$prompt_tokens,
     output = result$usage$completion_tokens
   )
-  cat("DEBUG: Parsed result structure:\n")
-  str(result)
+  # cat("DEBUG: Parsed result structure:\n")
+  # str(result)
   assistant_turn(
     content,
     json = result,
