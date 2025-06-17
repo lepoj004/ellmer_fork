@@ -150,7 +150,7 @@ method(base_request_error, ProviderOpenAI) <- function(provider, req) {
 # Chat endpoint ----------------------------------------------------------------
 
 method(chat_path, ProviderOpenAI) <- function(provider) {
-  "/chat/completions"
+  ""
 }
 
 # https://platform.openai.com/docs/api-reference/chat/create
