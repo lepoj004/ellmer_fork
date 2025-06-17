@@ -192,6 +192,9 @@ method(chat_body, ProviderOpenAI) <- function(
     response_format = response_format
   ))
   
+  cat("DEBUG: Request headers:\n")
+  print(req$headers)
+  
   cat("DEBUG: Final JSON body to be sent:\n")
   print(jsonlite::toJSON(body, auto_unbox = TRUE, pretty = TRUE))
   
