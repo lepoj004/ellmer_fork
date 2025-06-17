@@ -161,7 +161,7 @@ method(chat_body, ProviderOpenAI) <- function(
   tools = list(),
   type = NULL
 ) {
-  stream = FALSE
+  # stream = FALSE
   
   messages <- compact(unlist(as_json(provider, turns), recursive = FALSE))
   tools <- as_json(provider, unname(tools))
