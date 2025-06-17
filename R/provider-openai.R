@@ -253,15 +253,17 @@ method(stream_merge_chunks, ProviderOpenAI) <- function(
   result,
   chunk
 ) {
-  sink()
-  cat("DEBUG: stream_merge_chunks() received event:\n")
-  print(event)
+  cat("DEBUG: stream_merge_chunks() received:\n")
+  print(result)
+  print(chunk)
+
   if (is.null(result)) {
     chunk
   } else {
     merge_dicts(result, chunk)
   }
 }
+
 method(value_turn, ProviderOpenAI) <- function(
   provider,
   result,
